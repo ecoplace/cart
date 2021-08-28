@@ -88,11 +88,14 @@ class CartItem extends Model implements CartItemContract
      *
      * @return Builder
      */
-    public function scopeByProduct($query, Buyable $product)
+    public function scopeByProduct($query, Buyable $product,$params=[])
     {
-        return $query->where([
+        $conditions = [
             ['product_id', '=', $product->getId()],
             ['product_type', '=', $product->morphTypeName()]
-        ]);
+        ];
+        if($params)
+            $conditions['attributes'] = $params;
+        return $query->where($conditions);
     }
 }

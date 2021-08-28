@@ -62,7 +62,7 @@ class Cart extends Model implements CartContract
      */
     public function addItem(Buyable $product, $qty = 1, $params = []): \Vanilo\Cart\Contracts\CartItem
     {
-        $item = $this->items()->ofCart($this)->byProduct($product)->first();
+        $item = $this->items()->ofCart($this)->byProduct($product,$params['attributes'] ?? [])->first();
 
         if ($item) {
             $item->quantity += $qty;
